@@ -64,10 +64,15 @@ suite =
                     params =
                         Params.fromList [( "rand", str )]
 
+                    opts =
+                        Template.defaultOptions
+
                     t =
-                        Template.compile Template.defaultOptions "I can show {{rand}}"
+                        Template.compile
+                            { opts | trim = False }
+                            "I can show {{rand}}"
                 in
                 ("I can show " ++ str)
-                    |> Expect.equal (t |> Template.apply params)
+                    |> Expect.equal (t |> Template.run params)
 
         ]
